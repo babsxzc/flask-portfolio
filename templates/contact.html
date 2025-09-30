@@ -14,6 +14,16 @@
         <h1>Contact Me</h1>
         <p>Have questions or want to work together? Send me a message.</p>
     </header>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <ul class="flashes">
+        {% for category, message in messages %}
+        <li class="flash-{{ category }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+
 
     <nav>
         <a href="/profile">Profile</a>
