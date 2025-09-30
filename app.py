@@ -11,9 +11,24 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 from flask import Flask, render_template, request, redirect, url_for, session
 
-
-
 app = Flask(__name__)
+    def init_db():
+    conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS messages (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            email TEXT NOT NULL,
+            message TEXT NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    ''')
+    conn.commit()
+    conn.close()
+
+init_db()  # 🚀 Run it on startup
+
 app.secret_key = 'charles-secret-key-change-this'  # use a long random string in production
 
 
@@ -76,6 +91,7 @@ def contact():
     # ✅ ADD THIS RETURN FOR GET METHOD
     return render_template('contact.html')
 
+    return render_template('contact.html')  # Needed for GET requests
 
 @app.route('/admin/messages')
 def view_messages():
