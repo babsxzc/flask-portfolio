@@ -32,6 +32,22 @@ def init_db():
 
 init_db()  # 🚀 Run it on startup
 
+from flask import flash, redirect, url_for, session, request
+from datetime import datetime
+
+@app.before_request
+def check_session_expiry():
+    # Skip check for login page
+    if request.endpoint == 'admin_login':
+        return
+
+    # If session expired and user tries to access admin routes
+    if 'admin' not in session and request.path.startswith('/admin'):
+        flash('⚠️ Session expired. Please log in again.', 'error')
+        return redirect(url_for('admin_login'))
+
+    # Refresh session activity
+    session.modified = True
 
 
 @app.route('/')
