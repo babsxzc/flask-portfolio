@@ -32,7 +32,6 @@ def init_db():
 
 init_db()  # 🚀 Run it on startup
 
-app.secret_key = 'charles-secret-key-change-this'  # use a long random string in production
 
 
 @app.route('/')
