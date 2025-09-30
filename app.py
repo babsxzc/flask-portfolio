@@ -12,7 +12,7 @@ from datetime import timedelta
 
 app = Flask(__name__)
 app.secret_key = 'rujcdtxalgksrxzn'
-app.permanent_session_lifetime = timedelta(minutes=15)
+app.permanent_session_lifetime = timedelta(seconds=15)
 
 
 def init_db():
