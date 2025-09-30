@@ -132,11 +132,15 @@ def delete_message(message_id):
         return redirect(url_for('admin_login'))
 
     conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
+
     cursor.execute('DELETE FROM messages WHERE id = ?', (message_id,))
     conn.commit()
     conn.close()
+
     flash('🗑 Message deleted.', 'success')
     return redirect(url_for('view_messages'))
+
 
 
 @app.route('/admin/edit/<int:message_id>', methods=['GET', 'POST'])
