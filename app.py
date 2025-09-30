@@ -1,8 +1,7 @@
 import smtplib
 import threading
-
 from flask import flash
-
+import sqlite3
 from email.message import EmailMessage
 
 
@@ -12,7 +11,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask import Flask, render_template, request, redirect, url_for, session
 
 app = Flask(__name__)
-    def init_db():
+
+def init_db():
     conn = sqlite3.connect('database.db')
     cursor = conn.cursor()
     cursor.execute('''
@@ -62,9 +62,6 @@ def send_email(name, email, message):
         smtp.send_message(msg)
 
 
-import sqlite3
-
-
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
     if request.method == 'POST':
@@ -87,9 +84,6 @@ def contact():
 
         flash('✅ Your message has been sent!', 'success')
         return redirect(url_for('contact'))
-
-    # ✅ ADD THIS RETURN FOR GET METHOD
-    return render_template('contact.html')
 
     return render_template('contact.html')  # Needed for GET requests
 
@@ -138,19 +132,9 @@ def delete_message(message_id):
         return redirect(url_for('admin_login'))
 
     conn = sqlite3.connect('database.db')
-    cursor = conn.cursor()
     cursor.execute('DELETE FROM messages WHERE id = ?', (message_id,))
     conn.commit()
     conn.close()
-
-    flash('🗑 Message deleted.', 'success')
-    return redirect(url_for('view_messages'))
-
-
-    cursor.execute('DELETE FROM messages WHERE id = ?', (message_id,))
-    conn.commit()
-    conn.close()
-
     flash('🗑 Message deleted.', 'success')
     return redirect(url_for('view_messages'))
 
