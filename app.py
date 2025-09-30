@@ -67,11 +67,15 @@ def contact():
         conn.commit()
         conn.close()
 
-        # Send email to yourself
+        # Send email to yourself in background
         threading.Thread(target=send_email, args=(name, email, message)).start()
 
         flash('✅ Your message has been sent!', 'success')
-        return redirect(url_for('contact'))  # or render thankyou.html
+        return redirect(url_for('contact'))
+
+    # ✅ ADD THIS RETURN FOR GET METHOD
+    return render_template('contact.html')
+
 
 @app.route('/admin/messages')
 def view_messages():
