@@ -1,6 +1,5 @@
 import smtplib
 import threading
-from flask import flash
 import sqlite3
 from email.message import EmailMessage
 
@@ -9,8 +8,12 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 
 from flask import Flask, render_template, request, redirect, url_for, session
+from datetime import timedelta
 
 app = Flask(__name__)
+app.secret_key = 'rujcdtxalgksrxzn'
+app.permanent_session_lifetime = timedelta(minutes=15)
+
 
 def init_db():
     conn = sqlite3.connect('database.db')
@@ -110,9 +113,11 @@ def admin_login():
         )  # 🔁 Replace with your actual hash
 
         if check_password_hash(hashed_password, password):
+            session.permanent = True  # ✅ enable session timeout tracking
             session['admin'] = True
             flash('✅ Logged in successfully.', 'success')
             return redirect(url_for('view_messages'))
+
         else:
             flash('❌ Incorrect password.', 'error')
             return redirect(url_for('admin_login'))
