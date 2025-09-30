@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="profile-page">
+    <nav>
+        <a href="/profile">Profile</a>
+        <a href="/">Projects</a>
+        <a href="/contact">Contact</a>
+        {% if session.get('admin') %}
+        <a href="/admin/messages">Admin Dashboard</a>
+        <a href="/admin/logout">Logout</a>
+        {% else %}
+        <a href="/admin/login">Admin Login</a>
+        {% endif %}
+    </nav>
+    <header>
+        <h1>Hi! My name is Charles Marck Jagto.</h1>
+    </header>
+
+    <main>
+        <section class="profile-description">
+            <p>This is a simple website to practice HTML and CSS skills. I'm starting to learn step by step from
+                scratch.</p>
+            <p>I have a lot of hobbies but my priorities are wrestling, jiu-jitsu, and playing Valorant.</p>
+
+            <section class="image-container">
+                <img src="{{ url_for('static', filename='images/aj.jpg') }}" alt="Your profile image">
+            </section>
+
+            <br>
+
+            <footer>
+                <a href="https://www.instagram.com/ajbobzz/" style="text-decoration: none; color: inherit">
+                    Visit my Instagram
+                </a>
+            </footer>
+        </section>
+    </main>
+
+</body>
+
+</html>

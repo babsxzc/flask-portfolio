@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>All Messages</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        table {
+            width: 90%;
+            margin: 40px auto;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ccc;
+            text-align: left;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        h1 {
+            text-align: center;
+        }
+    </style>
+</head>
+<nav>
+    <a href="/profile">Profile</a>
+    <a href="/">Projects</a>
+    <a href="/contact">Contact</a>
+    {% if session.get('admin') %}
+    <a href="/admin/messages">Admin Dashboard</a>
+    <a href="/admin/logout">Logout</a>
+    {% else %}
+    <a href="/admin/login">Admin Login</a>
+    {% endif %}
+</nav>
+
+<body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <ul class="flashes">
+        {% for category, message in messages %}
+        <li class="flash-{{ category }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+
+    <header>
+        <h1>Admin: Messages Received</h1>
+    </header>
+
+    <div class="container">
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Message</th>
+                <th>Received At</th>
+                <th>Actions</th>
+            </tr>
+
+            {% for msg in messages %}
+            <tr>
+                <td>{{ msg[0] }}</td>
+                <td>{{ msg[1] }}</td>
+                <td>{{ msg[2] }}</td>
+                <td>{{ msg[3] }}</td>
+                <td>{{ msg[4] }}</td>
+                <td>
+                    <!-- ✏ Edit button -->
+                    <a href="{{ url_for('edit_message', message_id=msg[0]) }}">
+                        <button type="button">✏ Edit</button>
+                    </a>
+
+                    <!-- 🗑 Delete button -->
+                    <form action="{{ url_for('delete_message', message_id=msg[0]) }}" method="POST"
+                        style="display:inline;">
+                        <button type="submit" onclick="return confirm('Delete this message?')">🗑 Delete</button>
+                    </form>
+                </td>
+
+            </tr>
+
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <footer>
+        <p style="text-align:center">&copy; 2025 Charles Marck Jagto</p>
+    </footer>
+    <!-- DARK MODE TOGGLE -->
+    <button onclick="toggleDarkMode()" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
+        🌙 Toggle Dark Mode
+    </button>
+
+    <script>
+        // Enable persistence with localStorage
+        function toggleDarkMode() {
+            const isDark = document.body.classList.toggle('dark-mode');
+            localStorage.setItem('darkMode', isDark);
+        }
+
+        // On load
+        window.onload = () => {
+            if (localStorage.getItem('darkMode') === 'true') {
+                document.body.classList.add('dark-mode');
+            }
+        }
+    </script>
+
+</body>
+
+</html>

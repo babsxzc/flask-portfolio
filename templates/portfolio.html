@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <h1>Charles Marck Jagto</h1>
+        <p>Aspiring Web Developer</p>
+    </header>
+
+    <nav>
+        <a href="/profile">Profile</a>
+        <a href="/">Projects</a>
+        <a href="/contact">Contact</a>
+        <a href="/admin/messages">Admin Dashboard</a>
+        <a href="/admin/logout">Logout</a>
+    </nav>
+
+    <main>
+        <section class="projects">
+
+            <a href="https://avocadoria.com.ph/" style="text-decoration: none; color: inherit">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='images/avo.png') }}" alt="Avocadoria logo">
+                    <h2>Avocadoria</h2>
+                    <p>Avocadoria is a dessert destination in the Philippines that specializes in unique and delicious
+                        avocado-based treats.</p>
+                </div>
+            </a>
+            <a href="https://tasteofcza.com/" style="text-decoration: none; color: inherit">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='images/tcc.png') }}" alt="Taste of Czaczacza logo">
+                    <h2>Taste of Czaczacza</h2>
+                    <p>A home‑grown, modern café serving Filipino comfort food, all‑day breakfast, pastas, cakes, and
+                        donuts—created by Chefs Czarina & Marvin Sevilla.</p>
+                </div>
+            </a>
+            <a href="https://avocadoria.com.ph/" style="text-decoration: none; color: inherit">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='images/ccc.png') }}" alt="Czaczacza Logo">
+                    <h2>Czaczacza Donuts and Cakes</h2>
+                    <p>Czaczacza Donuts & Cakes is the sweet and playful arm of The Taste of Czaczacza brand. Known for
+                        its colorful donuts, indulgent cakes, and handcrafted coffee, Czaczacza blends Filipino
+                        creativity with global dessert trends.</p>
+                </div>
+            </a>
+            <a href="https://avocadoria.com.ph/" style="text-decoration: none; color: inherit">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='images/czarinas.png') }}" alt="Czarina's logo">
+                    <h2>Czarina's</h2>
+                    <p>A modern, all‑day Filipino dining spot that puts gentle twists on comfort‑food staples—think
+                        familiar flavors with playful upgrades.</p>
+                </div>
+            </a>
+
+            <!-- Other cards... -->
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Charles Marck Jagto. All rights reserved.</p>
+    </footer>
+
+</body>
+
+</html>
