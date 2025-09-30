@@ -7,7 +7,7 @@ from email.message import EmailMessage
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 from datetime import timedelta
 
 app = Flask(__name__)
