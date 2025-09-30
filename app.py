@@ -1,4 +1,5 @@
 import smtplib
+import threading
 
 from flask import flash
 
@@ -67,13 +68,10 @@ def contact():
         conn.close()
 
         # Send email to yourself
-        send_email(name, email, message)
+        threading.Thread(target=send_email, args=(name, email, message)).start()
 
         flash('✅ Your message has been sent!', 'success')
-
-    return render_template('contact.html')
-
-
+        return redirect(url_for('contact'))  # or render thankyou.html
 
 @app.route('/admin/messages')
 def view_messages():
